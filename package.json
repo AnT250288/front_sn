@@ -6,6 +6,7 @@
     "@iconscout/react-unicons": "^1.1.6",
     "@mantine/core": "^4.2.11",
     "@mantine/hooks": "^4.2.11",
+    "@mantine/modals": "^4.2.11",
     "@mantine/next": "^4.2.11",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",

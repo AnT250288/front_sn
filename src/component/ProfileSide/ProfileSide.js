@@ -1,12 +1,12 @@
 import Search from "../Seach/Search";
 import ProfileCard from "../profileCard/ProfileCard";
-import "./Profile.css"
-import FollowersCard from "../followersCard/FollowersCard";
+import "./ProfileSide.css"
+import FollowersCard from "../FollowersCard/FollowersCard";
 
 
-const Profile = () => {
+const ProfileSide = () => {
     return (
-        <div className={"Profile"}>
+        <div className={"ProfileSide"}>
             <Search/>
             <ProfileCard/>
             <FollowersCard/>
@@ -14,4 +14,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default ProfileSide

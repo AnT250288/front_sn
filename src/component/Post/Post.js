@@ -1,14 +1,31 @@
-import "./Post.css"
-import PostShare from "../PostShare/PostShare";
+import './Post.css'
+import Comment from '../../img/comment.png'
+import Share from '../../img/share.png'
+import Heart from '../../img/like.png'
+import NotLike from '../../img/notlike.png'
 
-
-const Post = () => {
+const Post = ({data, id}) => {
     return (
         <div className={"Post"}>
-            <PostShare/>
+            <img src={data.img} alt={"postPicture"}/>
+
+
+            <div className={"postReaction"}>
+                <img src={data.liked ? Heart : NotLike} alt={""}/>
+                <img src={Comment} alt={""}/>
+                <img src={Share} alt={""}/>
+            </div>
+
+            <span style={{color: "var(--gray)", fontSize: "12px"}}>{data.likes} likes</span>
+
+            <div className={"detail"}>
+                <span><b>{data.name}</b></span>
+                <span> {data.desc}</span>
+            </div>
+
+
         </div>
     )
 }
-
 
 export default Post
