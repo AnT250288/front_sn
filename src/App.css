@@ -26,7 +26,7 @@
     width: 22rem;
     height: 14rem;
     border-radius: 50%;
-    background: #56f552;
+    background: #e5cd21;
     filter: blur(72px);
 }
 
@@ -46,6 +46,11 @@
     color: var(--orange);
     background: transparent;
     border: 2px solid var(--orange);
+}
+
+.button:disabled {
+    background: silver;
+    pointer-events: none;
 }
 
 ::-webkit-scrollbar {

@@ -6,27 +6,68 @@ import {UilPlayCircle} from "@iconscout/react-unicons";
 import {UilLocationPoint} from "@iconscout/react-unicons";
 import {UilSchedule} from "@iconscout/react-unicons";
 import {UilTimes} from "@iconscout/react-unicons";
+import {useDispatch, useSelector} from "react-redux";
+import {uploadImage, uploadPost} from "../../actions/UploadAction";
 
 
 const PostShare = () => {
+    const serverPublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
+    const loading = useSelector((state) => state.postReducer.uploading)
+    const {user} = useSelector((state) => state.authReducer.authData)
+    const dispatch = useDispatch()
     const [image, setImage] = useState(null)
     const imageRef = useRef()
 
+    const desc = useRef()
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0]
-            setImage({
-                image: URL.createObjectURL(img)
-            })
+            setImage(img)
         }
+    }
+
+    const reset = () => {
+        setImage(null)
+        desc.current.value = ''
+    }
+
+    const submitHandle = (e) => {
+        e.preventDefault()
+
+        const newPost = {
+            userId: user._id,
+            desc: desc.current.value
+        }
+        if (image) {
+            const data = new FormData()
+            const filename = Date.now() + image.name
+            data.append("name", filename)
+            data.append("file", image)
+            newPost.image = filename
+
+            try {
+                dispatch(uploadImage(data))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        dispatch(uploadPost(newPost))
+        reset()
     }
 
 
     return (
         <div className={'PostShare'}>
-            <img src={ProfileImage} alt={'avatar'}/>
+            <img src={
+                user.profilePicture
+                    ? serverPublicFolder + user.profilePicture
+                    : serverPublicFolder + "defaultProfile.jpg"
+            } alt={'profileImage'}/>
             <div>
-                <input type={'text'} placeholder={"What's happening"}/>
+                <input ref={desc}
+                       required
+                       type={'text'}
+                       placeholder={"What's happening"}/>
 
                 <div className={"postOptions"}>
                     <div className={"option"}
@@ -54,9 +95,11 @@ const PostShare = () => {
                         <UilSchedule/>
                         Schedule
                     </div>
-                    <button className={"button ps_button"}>
-                        Share
+
+                    <button className={"button ps_button"} onClick={submitHandle} disabled={loading}>
+                        {loading ? "Uploading..." : "Share"}
                     </button>
+
                     <div style={{display: "none"}}>
                         <input type={"file"} name={'myImage'} ref={imageRef} onChange={onImageChange}/>
                     </div>
@@ -65,7 +108,7 @@ const PostShare = () => {
                 {image && (
                     <div className={"previewImage"}>
                         <UilTimes onClick={() => setImage(null)}/>
-                        <img src={image.image} alt={'posts'}/>
+                        <img src={URL.createObjectURL(image)} alt={'posts'}/>
                     </div>
                 )}
             </div>
