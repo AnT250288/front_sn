@@ -14,9 +14,9 @@ const Post = ({data, id}) => {
     const [likes, setLikes] = useState(data.likes.length)
 
     const likeHandler = () => {
-        setLiked((prev) => !prev)
-        likePost(data._id, user._id)
-        liked ? setLikes((prev) => prev -1) : setLikes((prev) => prev +1)
+        likePost(data._id, user._id);
+        setLiked((prev) => !prev);
+        liked? setLikes((prev)=>prev-1): setLikes((prev)=>prev+1)
     }
 
 
@@ -26,9 +26,13 @@ const Post = ({data, id}) => {
 
 
             <div className={"postReaction"}>
-                <img src={liked ? Heart : NotLike} alt={""} style={{cursor: 'pointer'}} onClick={likeHandler}/>
-                <img src={Comment} alt={""}/>
-                <img src={Share} alt={""}/>
+                <img src={liked ? Heart : NotLike}
+                     alt="likeImg"
+                     style={{cursor: "pointer"}}
+                     onClick={likeHandler}
+                />
+                <img src={Comment} alt={"commentImg"}/>
+                <img src={Share} alt={"shareImg"}/>
             </div>
 
             <span style={{color: "var(--gray)", fontSize: "12px"}}>{likes} likes</span>

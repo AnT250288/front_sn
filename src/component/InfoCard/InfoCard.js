@@ -52,7 +52,6 @@ const InfoCard = () => {
                     )
                     : ("")
                 }
-
             </div>
 
             <div className={"info"}>
