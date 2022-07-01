@@ -2,6 +2,7 @@ const initialState = {
     authData: null,
     loading: false,
     error: false,
+    updateLoading: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -13,19 +14,20 @@ const authReducer = (state = initialState, action) => {
                 error: false
             }
         case "AUTH_SUCCESS":
-            localStorage.setItem("profile", JSON.stringify({...action?.data}))
+            localStorage.setItem("profile", JSON.stringify({...action?.data}));
             return {
                 ...state,
                 authData: action.data,
                 loading: false,
                 error: false
             }
+
         case "AUTH_FAIL":
             return {
                 ...state,
                 loading: false,
-                error: true,
-            }
+                error: true
+            };
         case "UPDATING_START":
             return {
                 ...state,
@@ -33,19 +35,21 @@ const authReducer = (state = initialState, action) => {
                 error: false
             }
         case "UPDATING_SUCCESS":
-            localStorage.setItem("profile", JSON.stringify({...action?.data}));
+            localStorage.setItem("profile", JSON.stringify({...action?.data}))
             return {
                 ...state,
                 authData: action.data,
                 updateLoading: false,
                 error: false
             }
+
         case "UPDATING_FAIL":
             return {
                 ...state,
-                updateLoading:
-                    true, error: true
+                updateLoading: true,
+                error: true
             }
+
         case "LOG_OUT":
             localStorage.clear();
             return {
@@ -55,26 +59,30 @@ const authReducer = (state = initialState, action) => {
                 error: false,
                 updateLoading: false
             }
+
+
         case "FOLLOW_USER":
             return {
                 ...state,
                 authData: {
-                    ...state.authData, user: {
+                    ...state.authData,
+                    user: {
                         ...state.authData.user,
                         following: [...state.authData.user.following, action.data]
                     }
                 }
             }
+
         case "UNFOLLOW_USER":
             return {
-                ...state,
-                authData: {
-                    ...state.authData, user: {
-                        ...state.authData.user,
-                        following: [...state.authData.user.following.
-                        filter((personId) => personId !== action.data)]
+                ...state, authData:
+                    {
+                        ...state.authData,
+                        user: {
+                            ...state.authData.user,
+                            following: [...state.authData.user.following.filter((personId) => personId !== action.data)]
+                        }
                     }
-                }
             }
 
         default:

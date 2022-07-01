@@ -60,7 +60,6 @@ function ProfileModal({modalOpened, setModalOpened, data}) {
         }
     };
 
-
     return (
         <Modal
             overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
@@ -72,7 +71,6 @@ function ProfileModal({modalOpened, setModalOpened, data}) {
         >
             <form className={"infoForm"}>
                 <h3>Your info</h3>
-
                 <div>
                     <input
                         type={"text"}
@@ -140,8 +138,11 @@ function ProfileModal({modalOpened, setModalOpened, data}) {
                     <input type={"file"} name={"coverImage"} onChange={onImageChange}/>
                 </div>
 
-                <button className={"button infoButton"} onClick={submitHandler}>Update</button>
-
+                <button
+                    className={"button infoButton"}
+                    onClick={submitHandler}>
+                    Update
+                </button>
             </form>
         </Modal>
     );

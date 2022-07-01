@@ -16,14 +16,12 @@ const Post = ({data, id}) => {
     const likeHandler = () => {
         likePost(data._id, user._id);
         setLiked((prev) => !prev);
-        liked? setLikes((prev)=>prev-1): setLikes((prev)=>prev+1)
+        liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1)
     }
-
 
     return (
         <div className={"Post"}>
             <img src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""} alt={"postPicture"}/>
-
 
             <div className={"postReaction"}>
                 <img src={liked ? Heart : NotLike}
@@ -41,8 +39,6 @@ const Post = ({data, id}) => {
                 <span><b>{data.name}</b></span>
                 <span> {data.desc}</span>
             </div>
-
-
         </div>
     )
 }

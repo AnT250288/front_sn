@@ -10,8 +10,8 @@ const postReducer = (state = initialState, action) => {
         case "UPLOAD_START":
             return {
                 ...state,
-                uploading: true,
-                error: false
+                error: false,
+                uploading: true
             }
         case "UPLOAD_SUCCESS":
             return {
@@ -20,16 +20,33 @@ const postReducer = (state = initialState, action) => {
                 uploading: false,
                 error: false
             }
-        case "UPLOAD_FAILED":
+        case "UPLOAD_FAIL":
             return {
                 ...state,
-                error: true,
-                uploading: false
+                uploading: false,
+                error: true
             }
-
+        case "RETRIEVING_START":
+            return {
+                ...state,
+                loading: true,
+                error: false
+            }
+        case "RETRIEVING_SUCCESS":
+            return {
+                ...state,
+                posts: action.data,
+                loading: false,
+                error: false
+            }
+        case "RETRIEVING_FAIL":
+            return {
+                ...state,
+                loading: false,
+                error: true
+            }
         default:
-            return state
+            return state;
     }
-}
-
+};
 export default postReducer
